@@ -1,3 +1,21 @@
+# Tambahkan ini di tempat Anda ingin meletakkan pengunggah file
+uploaded_file = st.file_uploader("Upload file data (format .txt atau .csv)", type=['txt', 'csv'])
+
+if uploaded_file is not None:
+    # Membaca data berdasarkan jenis file
+    if uploaded_file.name.endswith('.csv'):
+        df = pd.read_csv(uploaded_file)
+        # Mengambil data dari kolom pertama dan mengubahnya menjadi daftar baris
+        data_paito = "\n".join(df.iloc[:, 0].astype(str))
+    else:
+        # Membaca file teks biasa
+        data_paito = uploaded_file.getvalue().decode("utf-8")
+    
+    # Menampilkan data yang berhasil dimuat
+    st.text_area("Data yang dimuat:", value=data_paito, height=200)
+    
+    # Gunakan variabel 'data_paito' ini untuk proses algoritma prediksi Anda selanjutnya
+
 import streamlit as st
 import pandas as pd
 import numpy as np
